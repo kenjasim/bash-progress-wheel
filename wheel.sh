@@ -48,18 +48,9 @@ utils::print_progress(){
 
     # Exit the script if the process failed
     if ! wait $pid; then
-        utils::print_logs
+        echo "process $pid failed"
         exit 1
     fi 
-}
-
-#######################################
-# Prints the logs in the log file
-#######################################
-utils::print_logs(){
-    echo -e "${GREY}Log File Contents:"
-    cat $LOG_FILE 
-    echo -e $NC
 }
 
 #######################################
@@ -68,14 +59,8 @@ utils::print_logs(){
 # 1 - the first argument
 #######################################
 main(){
-    # Create new deploy log file for this run
-    if [[ -f $LOG_FILE ]]; then
-        rm $LOG_FILE
-    fi  
-
     sleep 5 & pid=$!
     utils::print_progress $pid "Sleeping" 
-
 }
 
 #################################################
